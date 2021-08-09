@@ -1,0 +1,20 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - task: S3Upload@1
+    displayName: 'Upload Databricks artifacts'
+    inputs:
+      awsCredentials: 'MyAWSAccount-service-connection'
+      regionName:  'us-east-1'
+      bucketName: 's3-upload-azuredevops-test'
+      createBucket: false
+      sourceFolder: 'sample.csv'
